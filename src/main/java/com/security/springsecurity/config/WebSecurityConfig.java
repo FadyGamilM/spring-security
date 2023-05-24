@@ -5,16 +5,23 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import com.security.springsecurity.repositories.UserRepo;
+import com.security.springsecurity.services.CustomUserDetailsService;
+
+import lombok.AllArgsConstructor;
 
 @Configuration
+// @AllArgsConstructor
 public class WebSecurityConfig {
-    @Bean
-    public UserDetailsService userDetailsService() {
-        return null;
-    }
+    // private final UserRepo _repo;
+
+    // @Bean
+    // public UserDetailsService userDetailsService() {
+    // return new CustomUserDetailsService(_repo);
+    // }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return NoOpPasswordEncoder.getInstance();
+        return NoOpPasswordEncoder.getInstance(); // should not use this in a prod app => BCryptPasswordEncoder
     }
 }

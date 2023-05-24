@@ -7,16 +7,16 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.security.springsecurity.repositories.UserRepo;
+import com.security.springsecurity.security.SecurityUser;
+
+import lombok.AllArgsConstructor;
 
 @Service
+@AllArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired
     private UserRepo _repo;
-
-    public CustomUserDetailsService(UserRepo repo) {
-        _repo = repo;
-    }
 
     public CustomUserDetailsService() {
     }
@@ -29,7 +29,9 @@ public class CustomUserDetailsService implements UserDetailsService {
         // the design-wise solution i will use is to use the adaptor pattern, i will
         // make the entity User adapt the UserDetails
         var user = _repo.getUserByUsername(username);
-        return null;
+        System.out.println(user.get().getUsername());
+        return user.map(SecurityUser::new).orElseThrow(() -> new UsernameNotFoundException(
+                "there is no user with this username -> " + user.get().getUsername()));
     }
 
 }
