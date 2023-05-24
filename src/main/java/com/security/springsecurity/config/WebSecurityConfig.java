@@ -9,11 +9,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 public class WebSecurityConfig {
     @Bean
-    public UserDetailsService userDetailsService() {
-        return null;
-    }
-
-    @Bean
     public PasswordEncoder passwordEncoder() {
         return NoOpPasswordEncoder.getInstance();
     }

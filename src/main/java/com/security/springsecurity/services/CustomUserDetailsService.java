@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.security.springsecurity.repositories.UserRepo;
+import com.security.springsecurity.security.SecurityUser;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
@@ -29,7 +30,8 @@ public class CustomUserDetailsService implements UserDetailsService {
         // the design-wise solution i will use is to use the adaptor pattern, i will
         // make the entity User adapt the UserDetails
         var user = _repo.getUserByUsername(username);
-        return null;
+        return user.map(SecurityUser::new)
+                .orElseThrow(() -> new UsernameNotFoundException("there is no user with this username : " + username));
     }
 
 }
