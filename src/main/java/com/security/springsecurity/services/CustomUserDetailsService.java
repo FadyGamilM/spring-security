@@ -24,14 +24,15 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         // we can't return this user because it doesn't implement the UserDetails and
-        // also i decided to not let the User domain entity implements UserDetails (S in
-        // SOLID)
+        // also i decided to not let the User domain entity implements as it's job is to
+        // only define the domain entity UserDetails (S in SOLID)
         // the design-wise solution i will use is to use the adaptor pattern, i will
         // make the entity User adapt the UserDetails
         var user = _repo.getUserByUsername(username);
         System.out.println(user.get().getUsername());
         return user.map(SecurityUser::new)
-                .orElseThrow(() -> new UsernameNotFoundException("there is no user with this username : " + username));
+                .orElseThrow(
+                        () -> new UsernameNotFoundException("there is no user with this username : {}" + username));
     }
 
 }
