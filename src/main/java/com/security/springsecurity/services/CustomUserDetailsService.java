@@ -30,8 +30,8 @@ public class CustomUserDetailsService implements UserDetailsService {
         // make the entity User adapt the UserDetails
         var user = _repo.getUserByUsername(username);
         System.out.println(user.get().getUsername());
-        return user.map(SecurityUser::new).orElseThrow(() -> new UsernameNotFoundException(
-                "there is no user with this username -> " + user.get().getUsername()));
+        return user.map(SecurityUser::new)
+                .orElseThrow(() -> new UsernameNotFoundException("there is no user with this username : " + username));
     }
 
 }

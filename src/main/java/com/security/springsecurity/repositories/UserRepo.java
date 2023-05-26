@@ -10,7 +10,7 @@ import com.security.springsecurity.domain.User;
 
 public interface UserRepo extends JpaRepository<User, Long> {
 
-    @Query(value = "SELECT * FROM users WHERE username=?1", nativeQuery = true)
 
+    @Query(value = "SELECT * FROM users WHERE username = ?1", nativeQuery = true)
     Optional<User> getUserByUsername(String username);
 }
