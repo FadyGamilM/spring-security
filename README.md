@@ -4,6 +4,6 @@ Deeping dive in spring security with spring boot
 **in this proejct i customized a specific part of the spring-security system as shown in the following diagram:**
 
 
-![](../spring-security/what-we-build.PNG)
+![](./what-we-build.PNG)
 
 I will provide the `authentication-provider` to consume the authentication credentials from my application database instead of generating a random password from spring-security framework and this will be done via implementing the `UserDetailsService` and `PasswordEncoder`.
