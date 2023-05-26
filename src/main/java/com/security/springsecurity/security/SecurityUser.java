@@ -2,6 +2,8 @@ package com.security.springsecurity.security;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,7 +26,7 @@ public class SecurityUser implements UserDetails {
         // thats what i will return
         // here i returned a List.of(lambda function takes nothing and returns string)
         // -> which returns collection of same func definition
-        return List.of(() -> "read");
+        return _user.getAuthorities().stream().map(SecurityAuthority::new).collect(Collectors.toList());
     }
 
     @Override

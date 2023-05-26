@@ -1,5 +1,6 @@
 package com.security.springsecurity.controllers;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class DemoController {
     @GetMapping("/demo")
     public String SayHello() {
-        return "Hello";
+        var authenticatedUser = SecurityContextHolder.getContext().getAuthentication();
+        authenticatedUser.getAuthorities().stream().forEach(a -> System.out.println(a));
+        return authenticatedUser.getPrincipal().toString();
     }
 }
